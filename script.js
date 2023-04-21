@@ -30,6 +30,18 @@ window.addEventListener('load', () => {
             this.wrapText(e.target.value);
         }
       });
+      this.particles = [];
+      this.gap = 3;
+      this.mouse = {
+        radius: 20000,
+        x: 0,
+        y:0
+      }
+      window.addEventListener('mousemove', (e)=>{
+        this.mouse.x = e.x;
+        this.mouse.y = e.y;
+      })
+      
     }
 
     wrapText(text) {
