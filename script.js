@@ -1,5 +1,4 @@
 window.addEventListener('load', () => {
-  const textInput = document.getElementById('textInput');
   const canvas = document.getElementById('canvas1');
   const ctx = canvas.getContext('2d');
   canvas.width = window.innerWidth;
@@ -21,14 +20,21 @@ window.addEventListener('load', () => {
       this.textX = this.canvasWidth / 2;
       this.textY = this.canvasHeight / 2;
       this.fontSize = 100;
+      this.lineHeight = this.fontSize * 0.8;
+      this.maxTextWidth = this.canvasWidth * 0.8;
+      this.textInput = document.getElementById('textInput');
+      this.textInput.addEventListener('keyup', (e) => {
+        this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+        this.wrapText(e.target.value);
+      });
     }
 
     wrapText(text) {
       const gradient = this.context.createLinearGradient(
         0,
         0,
-        canvas.width,
-        canvas.height
+        this.canvasWidth,
+        this.canvasHeight
       );
       gradient.addColorStop(0.3, 'red');
       gradient.addColorStop(0.5, 'blue');
@@ -39,8 +45,36 @@ window.addEventListener('load', () => {
       this.context.lineWidth = 3;
       this.context.strokeStyle = 'red';
       this.context.font = this.fontSize + 'px Helvetica';
-      this.context.fillText(text, this.textX, this.textY);
-      this.context.strokeText(text, this.textX, this.textY);
+
+      //wrap multiline text
+      let linesArray = [];
+      let words = text.split(' ');
+      let lineCounter = 0;
+      let line = '';
+      for (let i = 0; i < words.length; i++) {
+        let testLine = line + words[i] + ' ';
+        if (this.context.measureText(testLine).width > this.maxTextWidth) {
+          line = words[i] + ' ';
+          lineCounter++;
+        } else {
+          line = testLine;
+        }
+        linesArray[lineCounter] = line;
+      }
+      let textHeight = this.lineHeight * lineCounter;
+      this.textY = this.canvasHeight / 2 - textHeight / 2;
+      linesArray.forEach((el, index) => {
+        this.context.fillText(
+          el,
+          this.textX,
+          this.textY + index * this.lineHeight
+        );
+        this.context.strokeText(
+          el,
+          this.textX,
+          this.textY + index * this.lineHeight
+        );
+      });
     }
 
     convertToParticles() {}
@@ -52,40 +86,4 @@ window.addEventListener('load', () => {
   effect.wrapText('Hello there how are you');
 
   function animate() {}
-
-
-
-  // const maxTextWidth = canvas.width * 0.8;
-  // const lineHeight = 80;
-
-  // function wrapText(text){
-  //     let linesArray = [];
-  //     let lineCounter = 0;
-  //     let line = '';
-  //     let words = text.split(' ');
-  //     for(let i=0; i < words.length; i++){
-  //         let testLine = line + words[i] + ' ';
-  //         if(ctx.measureText(testLine).width > maxTextWidth){
-  //             line = words[i] + ' ';
-  //             lineCounter++;
-  //         } else {
-  //             line = testLine;
-  //         }
-  //         linesArray[lineCounter] = line;
-  //         console.log(ctx.measureText(testLine).width);
-
-  //     }
-  //     let textHeight = lineHeight * lineCounter;
-  //     let textY = canvas.height/2 - textHeight/2;
-  //     linesArray.forEach((el, index)=>{
-  //         ctx.fillText(el, canvas.width/2, textY + (index * lineHeight))
-  //     });
-  //     console.log(linesArray);
-
-  // }
-
-  // textInput.addEventListener('keyup', (e)=>{
-  //     ctx.clearRect(0, 0, canvas.width, canvas.height)
-  //     wrapText(e.target.value);
-  // })
 });
