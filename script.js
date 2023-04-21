@@ -31,11 +31,16 @@ window.addEventListener('load', () => {
         canvas.height
       );
       gradient.addColorStop(0.3, 'red');
-      gradient.addColorStop(0.5, 'orange');
-      gradient.addColorStop(0.7, 'yellow');
+      gradient.addColorStop(0.5, 'blue');
+      gradient.addColorStop(0.7, 'purple');
       this.context.fillStyle = gradient;
+      this.context.textAlign = 'center';
+      this.context.textBaseline = 'middle';
+      this.context.lineWidth = 3;
+      this.context.strokeStyle = 'red';
       this.context.font = this.fontSize + 'px Helvetica';
       this.context.fillText(text, this.textX, this.textY);
+      this.context.strokeText(text, this.textX, this.textY);
     }
 
     convertToParticles() {}
@@ -48,28 +53,7 @@ window.addEventListener('load', () => {
 
   function animate() {}
 
-  // ctx.lineWidth = 3;
-  // ctx.strokeStyle = 'red';
-  // ctx.beginPath();
-  // ctx.moveTo(0, canvas.height/2);
-  // ctx.lineTo(canvas.width, canvas.height/2);
-  // ctx.stroke();
 
-  // ctx.strokeStyle = 'green';
-  // ctx.beginPath();
-  // ctx.moveTo(canvas.width/2, 0);
-  // ctx.lineTo(canvas.width/2, canvas.height);
-  // ctx.stroke();
-
-  // const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
-  // gradient.addColorStop(0.3, 'red');
-  // gradient.addColorStop(0.5, 'orange');
-  // gradient.addColorStop(0.7, 'yellow');
-  // ctx.fillStyle = gradient;
-  // ctx.strokeStyle = 'blue';
-  // ctx.font = '80px Helevtica';
-  // ctx.textAlign = 'center';
-  // ctx.textBaseline = 'middle';
 
   // const maxTextWidth = canvas.width * 0.8;
   // const lineHeight = 80;
