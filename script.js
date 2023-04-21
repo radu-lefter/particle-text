@@ -100,6 +100,18 @@ window.addEventListener('load', () => {
         0,
         this.canvasWidth,
         this.canvasHeight).data;
+      for(let y = 0; y < this.canvasHeight; y+=this.gap){
+        for(let x = 0; x < this.canvasWidth; x+=this.gap){
+          const index = (y * this.canvasWidth + x) * 4;
+          const alpha = pixels[index + 3];
+          if(alpha > 0){
+            const red = pixels[index];
+            const green = pixels[index + 1];
+            const blue = pixels[index + 2];
+            const color = 'rgb(' + red + ',' + green + ',' + blue + ')';
+          }
+        }
+      }
     }
 
     render() {}
