@@ -25,7 +25,10 @@ window.addEventListener('load', () => {
       this.textInput = document.getElementById('textInput');
       this.textInput.addEventListener('keyup', (e) => {
         this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
-        this.wrapText(e.target.value);
+        if(e.key !== ' '){
+            this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
+            this.wrapText(e.target.value);
+        }
       });
     }
 
