@@ -24,6 +24,8 @@ window.addEventListener('load', ()=>{
     ctx.textBaseline = 'middle';
 
     const maxTextWidth = canvas.width * 0.8;
+    const lineHeight = 80;
+
 
 
     function wrapText(text){
@@ -43,12 +45,14 @@ window.addEventListener('load', ()=>{
             console.log(ctx.measureText(testLine).width);
             
         }
+        let textHeight = lineHeight * lineCounter;
+        let textY = canvas.height/2 - textHeight/2;
         linesArray.forEach((el, index)=>{
-            ctx.fillText(el, canvas.width/2, canvas.height/2 + index * 70)
+            ctx.fillText(el, canvas.width/2, textY + (index * lineHeight))
         });
         console.log(linesArray);
         
     }
 
-    wrapText('Hello, how are you, what can you tell me');
+    wrapText('Hello, how are you, what can you tell me, please tell me more');
 })
