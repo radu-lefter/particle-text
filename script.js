@@ -23,7 +23,7 @@ window.addEventListener('load', ()=>{
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
 
-    const maxTextWidth = canvas.width * 0.5;
+    const maxTextWidth = canvas.width * 0.8;
 
 
     function wrapText(text){
@@ -33,11 +33,22 @@ window.addEventListener('load', ()=>{
         let words = text.split(' ');
         for(let i=0; i < words.length; i++){
             let testLine = line + words[i] + ' ';
+            if(ctx.measureText(testLine).width > maxTextWidth){
+                line = words[i] + ' ';
+                lineCounter++;
+            } else {
+                line = testLine;
+            }
+            linesArray[lineCounter] = line;
             console.log(ctx.measureText(testLine).width);
-            ctx.fillText(testLine, canvas.width/2, canvas.height/2 + i * 70)
+            
         }
+        linesArray.forEach((el, index)=>{
+            ctx.fillText(el, canvas.width/2, canvas.height/2 + index * 70)
+        });
+        console.log(linesArray);
         
     }
 
-    wrapText('Hello, how are you');
+    wrapText('Hello, how are you, what can you tell me');
 })
