@@ -90,9 +90,17 @@ window.addEventListener('load', () => {
           this.textY + index * this.lineHeight
         );
       });
+      this.convertToParticles();
     }
 
-    convertToParticles() {}
+    convertToParticles() {
+      this.particles = [];
+      const pixels = this.context.getImageData(
+        0,
+        0,
+        this.canvasWidth,
+        this.canvasHeight).data;
+    }
 
     render() {}
   }
