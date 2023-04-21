@@ -18,7 +18,11 @@ window.addEventListener('load', ()=>{
     ctx.lineTo(canvas.width/2, canvas.height);
     ctx.stroke();
 
-    ctx.fillStyle = 'white';
+    const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+    gradient.addColorStop(0.3, 'red');
+    gradient.addColorStop(0.5, 'orange');
+    gradient.addColorStop(0.7, 'yellow');
+    ctx.fillStyle = gradient;
     ctx.strokeStyle = 'blue';
     ctx.font = '80px Helevtica';
     ctx.textAlign = 'center';
