@@ -1,4 +1,5 @@
 window.addEventListener('load', ()=>{
+    const textInput = document.getElementById('textInput');
     const canvas = document.getElementById('canvas1');
     const ctx = canvas.getContext('2d');
     canvas.width = window.innerWidth;
@@ -54,5 +55,9 @@ window.addEventListener('load', ()=>{
         
     }
 
-    wrapText('Hello, how are you, what can you tell me, please tell me more');
+ 
+    textInput.addEventListener('keyup', (e)=>{
+        ctx.clearRect(0, 0, canvas.width, canvas.height)
+        wrapText(e.target.value);
+    })
 })
