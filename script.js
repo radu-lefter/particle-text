@@ -8,7 +8,7 @@ window.addEventListener('load', () => {
     constructor(effect, x, y, color) {
       this.effect = effect;
       this.x = Math.random() * this.effect.canvasWidth;
-      this.y = y;
+      this.y = this.effect.canvasHeight;
       this.color = color;
       this.originX = x;
       this.originY = y;
@@ -27,14 +27,17 @@ window.addEventListener('load', () => {
     draw() {
       this.effect.context.fillStyle = this.color;
       this.effect.context.fillRect(
-        this.originX,
-        this.originY,
+        this.x,
+        this.y,
         this.size,
         this.size
       );
     }
 
-    update() {}
+    update() {
+      this.x += (this.originX - this.x) * this.ease;
+      this.y += (this.originY - this.y) * this.ease;
+    }
   }
 
   class Effect {
@@ -56,7 +59,7 @@ window.addEventListener('load', () => {
         }
       });
       this.particles = [];
-      this.gap = 10;
+      this.gap = 3;
       this.mouse = {
         radius: 20000,
         x: 0,
@@ -153,5 +156,10 @@ window.addEventListener('load', () => {
   effect.wrapText('Hello there how are you');
   effect.render();
 
-  function animate() {}
+  function animate() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    effect.render();
+    requestAnimationFrame(animate);
+  }
+  animate();
 });
