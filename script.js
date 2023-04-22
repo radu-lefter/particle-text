@@ -24,7 +24,10 @@ window.addEventListener('load', () => {
       this.ease = Math.random() * 0.1 + 0.005;
     }
 
-    draw() {}
+    draw() {
+      this.effect.context.fillStyle = this.color;
+      this.effect.context.fillRect(this.x, this.y, this.size, this.size);
+    }
 
     update() {}
   }
@@ -126,6 +129,7 @@ window.addEventListener('load', () => {
             const green = pixels[index + 1];
             const blue = pixels[index + 2];
             const color = 'rgb(' + red + ',' + green + ',' + blue + ')';
+            this.particles.push(new Particle(this, x, y, color));
           }
         }
       }
