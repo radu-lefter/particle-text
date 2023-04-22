@@ -1,6 +1,8 @@
 window.addEventListener('load', () => {
   const canvas = document.getElementById('canvas1');
-  const ctx = canvas.getContext('2d');
+  const ctx = canvas.getContext('2d', {
+    willReadFrequently: true
+  });
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
 
@@ -62,6 +64,7 @@ window.addEventListener('load', () => {
       this.lineHeight = this.fontSize * 0.8;
       this.maxTextWidth = this.canvasWidth * 0.8;
       this.textInput = document.getElementById('textInput');
+      this.verticalOffset = 0;
       this.textInput.addEventListener('keyup', (e) => {
         this.context.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
         if (e.key !== ' ') {
@@ -164,7 +167,7 @@ window.addEventListener('load', () => {
   }
 
   const effect = new Effect(ctx, canvas.width, canvas.height);
-  effect.wrapText('Hello there how are you');
+  effect.wrapText(effect.textInput.value);
   effect.render();
 
   function animate() {
